@@ -6,11 +6,24 @@ namespace UnityStandardAssets._2D
 {
     public class PlatformerCharacter2D : MonoBehaviour
     {
-        [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
-        [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
+        [SerializeField] public float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis
+        [SerializeField] public float m_JumpForce = 50f;                  // Amount of force added when the player jumps
+        [SerializeField] public float m_Strength = 50f;                  // Amount of force the player exerts when pushing (/ pulling)
+        [SerializeField] public float m_MaxHealth = 100f;                  // The maximum health the player has
+        [Range(0, 1)] [SerializeField] public float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
+
+        //Our implementation of the player with some variables
+        private float currentSpeed;         // The player's current speed
+        private float currentJumpForce;     // The player's current jump force
+        private float currentStrength;      // The player's current strength
+        public float health;                // The player's current health
+        public float score = 0f;            // The player's current score
+
+        private Boolean alive = true;       // Whether the player is alive
+        private Boolean isSwinging = false; // Whether the player is swinging
+        private Boolean isClimbing = false; // Whether the player is climbing
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -28,6 +41,12 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+            //Set initital speed, jump force and strength values
+            currentSpeed = m_MaxSpeed;
+            currentJumpForce = m_JumpForce;
+            currentStrength = m_Strength;
+            health = m_MaxHealth;
         }
 
 
@@ -50,7 +69,7 @@ namespace UnityStandardAssets._2D
         }
 
 
-        public void Move(float move, bool crouch, bool jump)
+        public void Move(float move, float climb, bool crouch, bool jump)
         {
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
@@ -62,41 +81,54 @@ namespace UnityStandardAssets._2D
                 }
             }
 
-            // Set whether or not the character is crouching in the animator
-            m_Anim.SetBool("Crouch", crouch);
-
-            //only control the player if grounded or airControl is turned on
-            if (m_Grounded || m_AirControl)
+            // If climbing, do not move horizontally but vertically. This cannot be done while crouching
+            if (!crouch && isClimbing)
             {
-                // Reduce the speed if crouching by the crouchSpeed multiplier
-                move = (crouch ? move*m_CrouchSpeed : move);
-
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
-                m_Anim.SetFloat("Speed", Mathf.Abs(move));
+                m_Anim.SetFloat("Speed", Mathf.Abs(climb));
 
                 // Move the character
-                m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
+                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
 
-                // If the input is moving the player right and the player is facing left...
-                if (move > 0 && !m_FacingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
-                    // Otherwise if the input is moving the player left and the player is facing right...
-                else if (move < 0 && m_FacingRight)
-                {
-                    // ... flip the player.
-                    Flip();
-                }
             }
-            // If the player should jump...
-            if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+            else
             {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-                m_Anim.SetBool("Ground", false);
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                // Set whether or not the character is crouching in the animator
+                m_Anim.SetBool("Crouch", crouch);
+
+                //only control the player if grounded or airControl is turned on
+                if (m_Grounded || m_AirControl)
+                {
+                    // Reduce the speed if crouching by the crouchSpeed multiplier
+                    move = (crouch ? move * m_CrouchSpeed : move);
+
+                    // The Speed animator parameter is set to the absolute value of the horizontal input.
+                    m_Anim.SetFloat("Speed", Mathf.Abs(move));
+
+                    // Move the character
+                    m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, m_Rigidbody2D.velocity.y);
+
+                    // If the input is moving the player right and the player is facing left...
+                    if (move > 0 && !m_FacingRight)
+                    {
+                        // ... flip the player.
+                        Flip();
+                    }
+                    // Otherwise if the input is moving the player left and the player is facing right...
+                    else if (move < 0 && m_FacingRight)
+                    {
+                        // ... flip the player.
+                        Flip();
+                    }
+                }
+                // If the player should jump...
+                if (m_Grounded && jump && m_Anim.GetBool("Ground"))
+                {
+                    // Add a vertical force to the player.
+                    m_Grounded = false;
+                    m_Anim.SetBool("Ground", false);
+                    m_Rigidbody2D.AddForce(new Vector2(0f, currentJumpForce));
+                }
             }
         }
 
@@ -110,6 +142,57 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        //Sets the maximum speed of the player to a new value. Use revert to bring the player back to its initial maximum speed.
+        public void SetMaxSpeed(float newSpeed, Boolean revert)
+        {
+            if (revert) { currentSpeed = m_MaxSpeed; }
+            else { currentSpeed = newSpeed; }
+        }
+
+        //Sets the jump force of the player to a new value. Use revert to bring the player back to its initial jump force.
+        public void SetMaxJumpForce(float newJumpForce, Boolean revert)
+        {
+            if (revert) { currentJumpForce = m_JumpForce; }
+            else { currentJumpForce = newJumpForce; }
+        }
+
+        //Sets the strength of the player to a new value. Use revert to bring the player back to its initial strength.
+        public void SetStrength(float newStrength, Boolean revert)
+        {
+            if (revert) { currentStrength = m_Strength; }
+            else { currentStrength = newStrength; }
+        }
+
+        //Increase the player's score with some amount
+        public void IncreaseScore(float addedScore)
+        {
+            score += addedScore;
+        }
+
+        //Will be executed upon death
+        public void Die()
+        {
+            alive = false;
+        }
+
+        //Lose health with some amount and perhaps die because of it
+        public void LoseHealth(float damage)
+        {
+            health -= damage;
+            if (health <= 0) { Die(); }
+        }
+
+        //Pick up a collectable
+        public void Collect(object collectable)
+        {
+            //Make a distinction between a coin and a special collectable
+            //For a special collectable, indicate it is collected and increase score.
+            /* if(collectable.getType = ...) {...;} */
+
+            //Increase the player's score
+            //IncreaseScore(collectable.value);
         }
     }
 }
