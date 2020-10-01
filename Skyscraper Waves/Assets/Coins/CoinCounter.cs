@@ -14,7 +14,7 @@ public TextMeshProUGUI text;
     void Start()
     {
         if (instance == null) {
-            instace = this;
+            instance = this;
         }
     }
 

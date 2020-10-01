@@ -6,12 +6,12 @@ public class Coin : MonoBehaviour
 {
  public int coinValue = 1; // als de player tegen een coin aanloopt verandert de score
  
- void OnTriggerEnter2D(Collider2D Collision){
-	  if(Other.gameObject.CompareTag("Player")){ 
+ void OnTriggerEnter2D(Collider2D other){
+	  if(other.gameObject.CompareTag("Player")){ 
 			CoinCounter.instance.ChangeScore(coinValue);
 	  }
  }
-} 
+ 
 
 private void OnTrigerEnter2D(Collider2D other) // als de player tegen de coin aanloopt verwijdert het spel de coin
 { 
@@ -20,4 +20,4 @@ private void OnTrigerEnter2D(Collider2D other) // als de player tegen de coin aa
 		Destroy(other.gameObject);
 		}
 	}
-	
+}	
