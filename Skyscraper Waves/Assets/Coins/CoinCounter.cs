@@ -13,12 +13,12 @@ public TextMeshProUGUI text;
     // Start is called before the first frame update
     void Start()
     {
-        if instance == null {
-            instace == this;
+        if (instance == null) {
+            instace = this;
         }
     }
 
     public void ChangeScore (int coinValue) {
         score += coinValue;
-        text.text = "X"+score.ToString(); 
-    }
+        text.text = "X" + score.ToString(); 
+    } }
