@@ -1,18 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class Water : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Rigidbody2D rb2D;
+    public float velY = 1.5f;
+    private Vector2 velocity;
+
     void Start()
     {
-        
+        velocity = new Vector2(0.0f, velY);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
+        if (rb2D.position.y >= 8.0)
+        {
+            velocity = new Vector2(0.0f, -velY);
+        }
+        if (rb2D.position.y <= -2.0)
+        {
+            velocity = new Vector2(0.0f, velY);
+        }
     }
 }
