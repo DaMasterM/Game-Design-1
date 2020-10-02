@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Bat : MonoBehaviour
 {
-    public bool dirRight = true;
-    public float speed = 2.0f;
-    public SpriteRenderer renderer;
+    private bool dirRight = true;
+    private float speed = 2.0f;
+    private SpriteRenderer renderer;
+
+    //public PlatformerCharacter2D other;
     void Start ()
    {
         // get a reference to the SpriteRenderer component on this gameObject
-        //mySpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
    }
-     void Update () {
+    private void Update () {
          if (dirRight)
              transform.Translate (Vector2.right * speed * Time.deltaTime);
          else
@@ -28,5 +29,17 @@ public class Bat : MonoBehaviour
              dirRight = true;
              renderer.flipX = false;
          }
-}
+
+         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision){
+            //Check for a match with the specified tag on any GameObject that collides with your GameObject
+            if (collision.gameObject.tag == "Player")
+            {
+                //If the GameObject's tag matches the one you suggest, deal damage
+                renderer.flipY = true;
+                //other.LoseHealth(0.1);
+            }
+        }
 }
