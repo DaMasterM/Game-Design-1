@@ -5,20 +5,20 @@ using UnityEngine;
 namespace UnityStandardAssets._2D
 {
     [RequireComponent(typeof (PlatformerCharacter2D))]
-    public class Bat : MonoBehaviour
+    public class Rat : MonoBehaviour
     {
         private bool dirRight = true;
         private float speed = 2.0f;
         private float distance = 2.0f;
-        public SpriteRenderer renderer;
         float start;
-
+        public SpriteRenderer renderer;
         public PlatformerCharacter2D Player2D;
         void Start ()
     {
             start = transform.position.x;
             // get a reference to the SpriteRenderer component on this gameObject
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            
     }
         private void Update () {
             if (dirRight)
@@ -28,12 +28,12 @@ namespace UnityStandardAssets._2D
             
             if(transform.position.x >= start + distance) {
                 dirRight = false;
-                renderer.flipX = true;
+                renderer.flipX = false;
             }
             
             if(transform.position.x <= start - distance) {
                 dirRight = true;
-                renderer.flipX = false;
+                renderer.flipX = true;
             }
 
             
