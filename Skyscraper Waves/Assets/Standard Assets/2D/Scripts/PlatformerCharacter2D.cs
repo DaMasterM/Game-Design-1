@@ -21,9 +21,10 @@ namespace UnityStandardAssets._2D
         public float health;                // The player's current health
         public float score = 0f;            // The player's current score
 
+        public Boolean canClimb = false;    // Whether the player can climb
+        public Boolean isClimbing = false; // Whether the player is climbing
         private Boolean alive = true;       // Whether the player is alive
         private Boolean isSwinging = false; // Whether the player is swinging
-        private Boolean isClimbing = false; // Whether the player is climbing
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -81,8 +82,22 @@ namespace UnityStandardAssets._2D
                 }
             }
 
+            //Start climbing if the player wants
+            if (!crouch && canClimb && climb != 0)
+            {
+                canClimb = false;
+                isClimbing = true;
+                m_Rigidbody2D.gravityScale = 0;
+
+                // The Speed animator parameter is set to the absolute value of the horizontal input.
+                m_Anim.SetFloat("Speed", Mathf.Abs(climb));
+
+                // Move the character up
+                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
+            }
+
             // If climbing, do not move horizontally but vertically. This cannot be done while crouching
-            if (!crouch && isClimbing)
+            if (!crouch && isClimbing && !m_Grounded)
             {
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
                 m_Anim.SetFloat("Speed", Mathf.Abs(climb));
@@ -169,6 +184,14 @@ namespace UnityStandardAssets._2D
         public void IncreaseScore(float addedScore)
         {
             score += addedScore;
+        }
+
+        //Reset gravity
+        public void resetGravity()
+        {
+            m_Rigidbody2D.gravityScale = 3.0f;
+            canClimb = false;
+            isClimbing = false;
         }
 
         //Will be executed upon death
