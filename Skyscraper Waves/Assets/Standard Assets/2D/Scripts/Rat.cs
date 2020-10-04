@@ -7,9 +7,9 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Rat : MonoBehaviour
     {
-        private bool dirRight = true;
-        private float speed = 2.0f;
-        private float distance = 2.0f;
+        public bool dirRight = true;
+        public float speed = 2.0f;
+        public float distance = 4.0f;
         float start;
         public SpriteRenderer renderer;
         public PlatformerCharacter2D Player2D;

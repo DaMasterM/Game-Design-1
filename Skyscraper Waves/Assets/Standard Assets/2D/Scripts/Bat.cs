@@ -7,9 +7,9 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Bat : MonoBehaviour
     {
-        private bool dirRight = true;
-        private float speed = 2.0f;
-        private float distance = 2.0f;
+        public bool dirRight = true;
+        public float speed = 2.0f;
+        public float distance = 2.0f;
         public SpriteRenderer renderer;
         float start;
 
