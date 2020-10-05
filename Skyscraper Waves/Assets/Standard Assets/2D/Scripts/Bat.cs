@@ -13,7 +13,7 @@ namespace UnityStandardAssets._2D
         public SpriteRenderer renderer;
         float start;
         
-        protected UnityStandardAssets._2D.PlatformerCharacter2D Player2;
+        protected UnityStandardAssets._2D.PlatformerCharacter2D Player2D;
         void Start ()
     {
             start = transform.position.x;
@@ -45,15 +45,14 @@ namespace UnityStandardAssets._2D
 
         private void dealDamage(GameObject player)
         {
-            Player2 = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
+            Player2D = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
             //Check for a match with the specified tag on any GameObject that collides with your GameObject
             //if (player.tag == "Player")
             //{
-                if (Player2 != null)
+                if (Player2D != null)
                 {
                     //If the GameObject's tag matches the one you suggest, deal damage
-                    renderer.flipY = true;
-                    Player2.LoseHealth(1);
+                    Player2D.LoseHealth(1);
                 }
             //}
         }
