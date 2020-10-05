@@ -5,20 +5,22 @@ using TMPro;
 
 public class CoinCounter : MonoBehaviour
 {
-
 public static   CoinCounter instance;
 public TextMeshProUGUI text;
     int score;
 
-    // Start is called before the first frame update
+ // assign value to the coins. Each time a player collects a coin, the score will be adjusted according to the amount of collected coins
     void Start()
     {
-        if (instance == null) {
+        if (instance == null) 
+        {
             instance = this;
         }
     }
 
-    public void ChangeScore (int coinValue) {
+    public void ChangeScore (int coinValue) 
+    {
         score += coinValue;
         text.text = "X" + score.ToString(); 
-    } }
+    } 
+    }

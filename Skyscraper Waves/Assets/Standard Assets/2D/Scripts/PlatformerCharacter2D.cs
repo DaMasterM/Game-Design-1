@@ -217,5 +217,22 @@ namespace UnityStandardAssets._2D
             //Increase the player's score
             //IncreaseScore(collectable.value);
         }
+        
+        // destroy coins when collected
+        private void OnTriggerEnter2D (Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Coin"))
+            {
+                Destroy (other.gameObject);
+            }
+
+            // destroy player when he touches the Water
+            if (other.gameObject.CompareTag("Water"))
+            {
+                Destroy(this.gameObject);
+            }
+       
+        }
+
     }
 }
