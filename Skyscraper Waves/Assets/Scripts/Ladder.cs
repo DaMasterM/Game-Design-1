@@ -31,16 +31,24 @@ public class Ladder : MonoBehaviour
     private void StartClimbing(GameObject player)
     {
         //Get a reference to the player
-        playerBrain = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
-        playerBrain.canClimb = true;
+        playerBrain = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ();
+
+        if (playerBrain != null)
+        {
+            playerBrain.canClimb = true;
+        }
     }
 
-    private void StopClimbing(GameObject player)
+        private void StopClimbing(GameObject player)
     {
         //Get a reference to the player
-        playerBrain = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
-        playerBrain.canClimb = false;
-        playerBrain.isClimbing = false;
-        playerBrain.resetGravity();
+        playerBrain = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ();
+
+        if (playerBrain != null)
+        {
+            playerBrain.canClimb = false;
+            playerBrain.isClimbing = false;
+            playerBrain.resetGravity();
+        }
     }
 }
