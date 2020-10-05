@@ -8,7 +8,7 @@ public class objectDetection : MonoBehaviour
     public Rigidbody2D rb2Ds;
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        Debug.Log("test");
+        //Debug.Log("test");
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -17,7 +17,7 @@ public class objectDetection : MonoBehaviour
           if (collision.gameObject.tag == "Player")
           {
               //If the GameObject has the same tag as specified, output this message in the console
-              Debug.Log("fall");
+              //Debug.Log("fall");
 
             rb2Ds.bodyType = RigidbodyType2D.Dynamic;
 
