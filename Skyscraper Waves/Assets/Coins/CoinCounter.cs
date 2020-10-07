@@ -5,8 +5,8 @@ using TMPro;
 
 public class CoinCounter : MonoBehaviour
 {
-public static   CoinCounter instance;
-public TextMeshProUGUI text;
+    public static   CoinCounter instance;
+    public TextMeshProUGUI text;
     int score;
 
  // assign value to the coins. Each time a player collects a coin, the score will be adjusted according to the amount of collected coins
