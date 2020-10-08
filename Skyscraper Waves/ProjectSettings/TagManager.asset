@@ -8,7 +8,6 @@ TagManager:
   - Enemy
   - Undefined
   - Water
-  - Pencil
   layers:
   - Default
   - TransparentFX

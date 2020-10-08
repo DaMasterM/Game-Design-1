@@ -35,15 +35,6 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
-        //shooting  variables
-        public int ammo = 0; //amount of ammo currently available
-        public GameObject pencil;
-        [SerializeField]
-        Transform pencilSpawnPos;
-        private bool isShooting = false;
-        public float pencilSpeed = 3f;
-        public float shootDelay = 0.5f;
-
         private void Awake()
         {
             // Setting up references.
@@ -243,28 +234,5 @@ namespace UnityStandardAssets._2D
        
         }
 
-        public void Attack() 
-        {
-            if (isShooting) {return;}
-            isShooting = true;
-            if (ammo <= 0) {
-                return;
-            }
-            IncreaseAmmo(-1);
-
-            GameObject p = Instantiate(pencil);
-            p.GetComponent<PencilScript>().StartShoot(m_FacingRight);
-            p.transform.position = pencilSpawnPos.transform.position;
-
-            Invoke("ResetShoot", shootDelay);
-        }
-
-        private void ResetShoot() {
-            isShooting = false;
-        }
-
-        public void IncreaseAmmo(int ammoValue) {
-            ammo += ammoValue;
-        }
     }
 }
