@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Skyscraper Waves/Assets/BayatGames/Free Platform Game Assets/Tiles/2.5D Tiles/Spring/png.meta
 guid: abcaa39522b428148a86604075a42a9a
+========
+guid: d89943d3521787f429b9050e24900a02
+>>>>>>>> 1484bb6060f8bab312fac527cc6bc0d9be7ca997:Skyscraper Waves/Assets/BayatGames/Free Platform Game Assets/Character/Character Source/png.meta
+=======
+guid: 9fa4b958d4b198243a5fc5e21fdd44ef
+>>>>>>> 1484bb6060f8bab312fac527cc6bc0d9be7ca997
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
