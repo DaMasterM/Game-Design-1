@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2522337111184463260}
   - component: {fileID: -5712008193779116152}
   m_Layer: 0
-  m_Name: bat
-  m_TagString: Enemy
+  m_Name: bat-1
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dirRight: 1
   speed: 2
-  distance: 2
   renderer: {fileID: 4368652710898173343}
 --- !u!61 &-5712008193779116152
 BoxCollider2D:
