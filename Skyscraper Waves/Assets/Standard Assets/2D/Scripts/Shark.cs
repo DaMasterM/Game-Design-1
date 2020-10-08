@@ -7,24 +7,28 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Shark : MonoBehaviour
     {
-        public float velY = 1.5f;
         public bool dirRight = true;
         public float speed = 2.0f;
         public float distance = 2.0f;
+        public float damage = 5.0f;
         public SpriteRenderer renderer;
         float start;
-        public bool attack = false;
-        private readonly System.Random _random = new System.Random();
-        private Rigidbody2D m_Rigidbody2D;
-        private float JumpForce = 50f;
+        float startjump;
+        public float velY = 0.2f;
+        public System.Random rnd = new System.Random();
+
+        private int interval;
+        private Rigidbody2D rb2D;
+        public float thrust = 300.0f;
         
-        protected UnityStandardAssets._2D.PlatformerCharacter2D Player2D;
+        protected UnityStandardAssets._2D.PlatformerCharacter2D Player2;
         void Start ()
-        {
+    {
+            rb2D = gameObject.GetComponent<Rigidbody2D>();
             start = transform.position.x;
             // get a reference to the SpriteRenderer component on this gameObject
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        }
+    }
         private void Update () {
             if (dirRight)
                 transform.Translate (Vector2.right * speed * Time.deltaTime);
@@ -40,10 +44,20 @@ namespace UnityStandardAssets._2D
                 dirRight = true;
                 renderer.flipX = true;
             }
-            if(_random.Next(1,100) == 1)
-                Jump();
-            
+
             transform.Translate (Vector2.up * velY * Time.deltaTime);
+            if(interval == 0){
+                if(rnd.Next(1,5000)==1){
+                    startjump = transform.position.y;
+                    Jump();}
+            }
+            else
+                interval -= 1;
+
+            if(transform.position.y < startjump && interval < 4700)
+                rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+                //transform.position.y = startjump;
+
 
             
         }
@@ -54,18 +68,23 @@ namespace UnityStandardAssets._2D
 
         private void dealDamage(GameObject player)
         {
-            Player2D = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
-            
-                if (Player2D != null)
+            Player2 = player.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D>();
+            //Check for a match with the specified tag on any GameObject that collides with your GameObject
+            //if (player.tag == "Player")
+            //{
+                if (Player2 != null)
                 {
                     //If the GameObject's tag matches the one you suggest, deal damage
-                    Player2D.LoseHealth(1);
+                    renderer.flipY = true;
+                    Player2.LoseHealth(damage);
                 }
-            
+            //}
         }
 
         private void Jump(){
-            m_Rigidbody2D.AddForce(new Vector2(0f, JumpForce));
+            interval = 5000;
+            rb2D.constraints = RigidbodyConstraints2D.None;
+            rb2D.AddForce(new Vector2(0f, thrust));
         }
     }
 }
