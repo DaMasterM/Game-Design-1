@@ -5,12 +5,14 @@ using UnityEngine;
 public class button : MonoBehaviour
 {
 
+    public bool on = false;
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        
-        if (Input.GetKey(KeyCode.E))
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("test");
+            on = !on;
         }
+
     }
 }

@@ -10,6 +10,7 @@ namespace UnityStandardAssets._2D
         public bool dirRight = true;
         public float speed = 2.0f;
         public float distance = 2.0f;
+        public float damage = 2.0f;
         public SpriteRenderer renderer;
         float start;
         
@@ -53,7 +54,7 @@ namespace UnityStandardAssets._2D
                 {
                     //If the GameObject's tag matches the one you suggest, deal damage
                     renderer.flipY = true;
-                    Player2.LoseHealth(1);
+                    Player2.LoseHealth(damage);
                 }
             //}
         }
