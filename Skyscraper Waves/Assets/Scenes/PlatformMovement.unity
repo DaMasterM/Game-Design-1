@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 552046888}
   - component: {fileID: 552046889}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1837ff52a213d204daefb00c8d54c51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressed: 0
 --- !u!23 &552046890
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -510,6 +511,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1380763903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4913020143739029476, guid: 443da759238ba7940929d3d6407e856a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4913020143235559172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1380763904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380763903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017d42ce57f4068469d6843085dad3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 552046887}
+  pressed: 0
+  rb2D: {fileID: 1380763906}
+  velX: 1.5
+--- !u!50 &1380763906 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4913020143739029477, guid: 443da759238ba7940929d3d6407e856a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4913020143235559172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1643544741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -726,7 +755,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: platformX
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4913020143739029478, guid: 443da759238ba7940929d3d6407e856a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 443da759238ba7940929d3d6407e856a, type: 3}
 --- !u!1001 &8230882611101828446
 PrefabInstance:
