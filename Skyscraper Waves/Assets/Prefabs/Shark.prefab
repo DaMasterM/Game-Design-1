@@ -147,8 +147,7 @@ MonoBehaviour:
   distance: 2
   damage: 5
   renderer: {fileID: 4965733543815666701}
-  velY: 0.2
-  interval: 0
+  velY: 0.4
   thrust: 300
 --- !u!50 &7515641673045639041
 Rigidbody2D:

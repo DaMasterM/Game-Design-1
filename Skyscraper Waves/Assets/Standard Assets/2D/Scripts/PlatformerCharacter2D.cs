@@ -22,7 +22,7 @@ namespace UnityStandardAssets._2D
         public float score = 0f;            // The player's current score
 
         public Boolean canClimb = false;    // Whether the player can climb
-        public Boolean isClimbing = false; // Whether the player is climbing
+        public Boolean isClimbing = false;  // Whether the player is climbing
         private Boolean alive = true;       // Whether the player is alive
         private Boolean isSwinging = false; // Whether the player is swinging
 
