@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
-    private bool isFloating = false; //Whether the box is floating on the water
-    private bool canFloat = false;   //Whether to start floating
-    public float velY = 0.2f;
-    private Transform waterCheck;
+    public bool hasPowerup = false; //Whether the crate holds a power up
+    public GameObject powerUp;      //Which powerup is found in the crate
+    private Transform waterCheck;   //Start position for checking collision with water
     private Rigidbody2D rb2d;
-
-    // Start is called before the first frame update
+    
     void Awake()
     {
         waterCheck = transform.Find("WaterCheckTrigger");
@@ -28,5 +26,23 @@ public class Crate : MonoBehaviour
                 rb2d.AddForce(new Vector2(0, 3f * rb2d.mass), ForceMode2D.Force);
             }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if ((other.gameObject.tag == "Building" && Mathf.Abs(rb2d.velocity.y) >= 3.0f) || other.gameObject.tag == "Pencil")
+        {
+            Break();
+        }
+    }
+
+    void Break()
+    {
+        if (hasPowerup)
+        {
+            GameObject p = Instantiate(powerUp);
+            p.transform.position = this.gameObject.transform.position + new Vector3(0f, 0.5f, 0f);
+        }
+        Destroy(gameObject);
     }
 }

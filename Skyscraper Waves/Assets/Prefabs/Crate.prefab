@@ -99,7 +99,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 100
   m_LinearDrag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 10
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -144,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd8fa2339fa54e4db44d466c2228916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velY: 0.2
+  hasPowerup: 0
+  powerUp: {fileID: 0}
 --- !u!1 &2731760587005503257
 GameObject:
   m_ObjectHideFlags: 0

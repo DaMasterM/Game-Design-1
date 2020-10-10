@@ -9,6 +9,8 @@ TagManager:
   - Undefined
   - Water
   - Pencil
+  - Crate
+  - Building
   layers:
   - Default
   - TransparentFX
