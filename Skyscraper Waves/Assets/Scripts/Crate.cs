@@ -20,12 +20,12 @@ public class Crate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(waterCheck.position, new Vector2(2.5f,1.875f), 0f);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(waterCheck.position, new Vector2(1.25f,1.25f), 0f);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject.tag == "Water")
             {
-                rb2d.AddForce(new Vector2(0, 4f * rb2d.mass), ForceMode2D.Force);
+                rb2d.AddForce(new Vector2(0, 3f * rb2d.mass), ForceMode2D.Force);
             }
         }
     }

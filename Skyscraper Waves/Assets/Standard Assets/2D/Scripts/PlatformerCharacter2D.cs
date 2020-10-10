@@ -8,7 +8,6 @@ namespace UnityStandardAssets._2D
     {
         [SerializeField] public float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis
         [SerializeField] public float m_JumpForce = 50f;                  // Amount of force added when the player jumps
-        [SerializeField] public float m_Strength = 50f;                  // Amount of force the player exerts when pushing (/ pulling)
         [SerializeField] public float m_MaxHealth = 100f;                  // The maximum health the player has
         [Range(0, 1)] [SerializeField] public float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
@@ -17,9 +16,10 @@ namespace UnityStandardAssets._2D
         //Our implementation of the player with some variables
         private float currentSpeed;         // The player's current speed
         private float currentJumpForce;     // The player's current jump force
-        private float currentStrength;      // The player's current strength
         public float health;                // The player's current health
         public float score = 0f;            // The player's current score
+
+        private GameObject[] crates;         //Array of all crates in the level
 
         public Boolean canClimb = false;    // Whether the player can climb
         public Boolean isClimbing = false;  // Whether the player is climbing
@@ -55,8 +55,9 @@ namespace UnityStandardAssets._2D
             //Set initital speed, jump force and strength values
             currentSpeed = m_MaxSpeed;
             currentJumpForce = m_JumpForce;
-            currentStrength = m_Strength;
             health = m_MaxHealth;
+
+            crates = GameObject.FindGameObjectsWithTag("Crate");
         }
 
 
@@ -173,6 +174,12 @@ namespace UnityStandardAssets._2D
         {
             if (revert) { currentSpeed = m_MaxSpeed; }
             else { currentSpeed = newSpeed; }
+
+            foreach (GameObject crate in crates)
+            {
+                if (revert) { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                else { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+            }
         }
 
         //Sets the jump force of the player to a new value. Use revert to bring the player back to its initial jump force.
@@ -183,10 +190,12 @@ namespace UnityStandardAssets._2D
         }
 
         //Sets the strength of the player to a new value. Use revert to bring the player back to its initial strength.
-        public void SetStrength(float newStrength, Boolean revert)
+        public void SetStrength(Boolean revert)
         {
-            if (revert) { currentStrength = m_Strength; }
-            else { currentStrength = newStrength; }
+            foreach (GameObject crate in crates){
+                if (revert) { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                else { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+            }
         }
 
         //Increase the player's score with some amount

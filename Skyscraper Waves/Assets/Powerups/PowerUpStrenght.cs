@@ -12,7 +12,7 @@ class PowerUpStrenght : PowerUp
         base.PowerUpPayload();
 
         // Payload is to give some health bonus
-        playerBrain.SetStrength(strength, false);      
+        playerBrain.SetStrength(false);      
     }
 
     protected override void PowerUpHasExpired ()     // Checklist item 2
@@ -21,7 +21,7 @@ class PowerUpStrenght : PowerUp
         {
             return;
         }
-        playerBrain.SetStrength(strength, true);
+        playerBrain.SetStrength(true);
 
         base.PowerUpHasExpired ();
     }
