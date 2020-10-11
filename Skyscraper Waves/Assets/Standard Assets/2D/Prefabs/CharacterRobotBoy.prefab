@@ -190,7 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxSpeed: 10
   m_JumpForce: 800
-  m_Strength: 50
   m_MaxHealth: 100
   m_CrouchSpeed: 0.25
   m_AirControl: 1
@@ -201,6 +200,11 @@ MonoBehaviour:
   score: 0
   canClimb: 0
   isClimbing: 0
+  ammo: 0
+  pencil: {fileID: 2913533273201925444, guid: 1631688fb71f56b4fa50f33995986d47, type: 3}
+  pencilSpawnPos: {fileID: 6716008298577860489}
+  pencilSpeed: 3
+  shootDelay: 0.5
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

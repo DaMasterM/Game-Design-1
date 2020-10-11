@@ -44,6 +44,9 @@ namespace UnityStandardAssets._2D
         public float pencilSpeed = 3f;
         public float shootDelay = 0.5f;
 
+        //collectables
+        private int coins = 0;
+
         private void Awake()
         {
             // Setting up references.
@@ -225,6 +228,11 @@ namespace UnityStandardAssets._2D
             if (health <= 0) { Die(); }
         }
 
+        public float HealthLeft()
+        {
+            return health;
+        }
+
         //Pick up a collectable
         public void Collect(object collectable)
         {
@@ -252,13 +260,17 @@ namespace UnityStandardAssets._2D
        
         }
 
+
+        //attacking
         public void Attack() 
         {
             if (isShooting) {return;}
-            isShooting = true;
+            
             if (ammo <= 0) {
                 return;
             }
+
+            isShooting = true;
             IncreaseAmmo(-1);
 
             GameObject p = Instantiate(pencil);
@@ -276,5 +288,20 @@ namespace UnityStandardAssets._2D
             ammo += ammoValue;
         }
 
+        public int AmmoAmount()
+        {
+            return ammo;
+        }
+
+        //collectables
+        public int CoinAmount() 
+        {
+            return coins;
+        }
+
+        public void IncreaseCoins(int value)
+        {
+            coins += value;
+        }
     }
 }
