@@ -12,11 +12,13 @@ namespace UnityStandardAssets._2D
         public float distance = 2.0f;
         public float damage = 2.0f;
         public SpriteRenderer renderer;
+        private Rigidbody2D rb2D;
         float start;
-        
         protected UnityStandardAssets._2D.PlatformerCharacter2D Player2;
+
         void Start ()
     {
+            rb2D = gameObject.GetComponent<Rigidbody2D>();
             start = transform.position.x;
             // get a reference to the SpriteRenderer component on this gameObject
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
@@ -41,7 +43,13 @@ namespace UnityStandardAssets._2D
         }
 
         private void OnTriggerEnter2D(Collider2D collision){
-            dealDamage(collision.gameObject);
+            if(collision.gameObject.tag =="Player"){
+                dealDamage(collision.gameObject);
+            }
+            
+            if(collision.gameObject.tag =="Pencil"){
+                Die();
+            }
         }
 
         private void dealDamage(GameObject player)
@@ -57,6 +65,11 @@ namespace UnityStandardAssets._2D
                     Player2.LoseHealth(damage);
                 }
             //}
+        }
+
+        private void Die(){
+                renderer.flipY = true;
+                rb2D.constraints = RigidbodyConstraints2D.None;
         }
     }
 }
