@@ -28,8 +28,9 @@ public class Crate : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Triggered");
         if (other.gameObject.tag == "Pencil")
         {
             Break();
@@ -43,6 +44,6 @@ public class Crate : MonoBehaviour
             GameObject p = Instantiate(powerUp);
             p.transform.position = this.gameObject.transform.position + new Vector3(0f, 0.5f, 0f);
         }
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 }
