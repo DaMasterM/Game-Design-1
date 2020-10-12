@@ -30,7 +30,7 @@ public class Crate : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if ((other.gameObject.tag == "Building" && Mathf.Abs(rb2d.velocity.y) >= 3.0f) || other.gameObject.tag == "Pencil")
+        if (other.gameObject.tag == "Pencil")
         {
             Break();
         }
