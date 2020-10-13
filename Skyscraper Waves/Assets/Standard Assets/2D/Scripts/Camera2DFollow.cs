@@ -43,6 +43,12 @@ namespace UnityStandardAssets._2D
             }
 
             Vector3 aheadTargetPos = target.position + m_LookAheadPos + Vector3.forward*m_OffsetZ;
+            // Make sure the camera remains in the bounds of the level
+            aheadTargetPos.x = Mathf.Max(aheadTargetPos.x, 8.5f);
+            aheadTargetPos.x = Mathf.Min(aheadTargetPos.x, 31.5f);
+            aheadTargetPos.y = Mathf.Max(aheadTargetPos.y, 4.5f);
+            aheadTargetPos.y = Mathf.Min(aheadTargetPos.y, 400f);
+            
             Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref m_CurrentVelocity, damping);
 
             transform.position = newPos;
