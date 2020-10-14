@@ -134,7 +134,7 @@ MonoBehaviour:
   powerUpName: 
   powerUpExplanation: 
   powerUpQuote: 
-  expiresImmediately: 0
+  expiresImmediately: 1
   specialEffect: {fileID: 0}
   soundEffect: {fileID: 0}
   coinValue: 1

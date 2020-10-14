@@ -6,13 +6,16 @@ using UnityEngine.SceneManagement;
 public class End : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision){
-        if(collision.gameObject.tag =="Player"){
-                TheEnd();
-            }
+        UnityStandardAssets._2D.PlatformerCharacter2D player = collision.GetComponent<UnityStandardAssets._2D.PlatformerCharacter2D> ();
+        if(player.tag =="Player"){
+            float score = player.GetScore();
+            PlayerPrefs.SetFloat("score", score);
+            TheEnd(score);
+        }
     }
 
-    void TheEnd(){
+    void TheEnd(float score){
         Debug.Log("Done");
         SceneManager.LoadScene (sceneName:"LevelComplete");
-        }
+    }
 }

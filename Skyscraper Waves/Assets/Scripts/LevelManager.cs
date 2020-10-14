@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI coinText; 
     public TextMeshProUGUI ammoText; 
     public TextMeshProUGUI healthText; 
+    public TextMeshProUGUI scoreText;
+    public GameObject noSpecialCollectable;
+    public GameObject specialCollectable;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +26,15 @@ public class LevelManager : MonoBehaviour
         coinText.text = "X" + player.CoinAmount();
         ammoText.text = "X" + player.AmmoAmount();
         healthText.text = player.HealthLeft().ToString();
+        scoreText.text = player.GetScore().ToString();
+        if (player.GetSpecialCollectable()) {
+            noSpecialCollectable.SetActive(false);
+            specialCollectable.SetActive(true);
+        }
+        else 
+        {
+            noSpecialCollectable.SetActive(true);
+            specialCollectable.SetActive(false);
+        }
     }
 }

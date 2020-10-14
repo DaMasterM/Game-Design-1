@@ -15,6 +15,8 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D rb2D;
         float start;
         protected UnityStandardAssets._2D.PlatformerCharacter2D Player2;
+        private UnityStandardAssets._2D.PlatformerCharacter2D playerBrain;
+        public float scoreValue = 100f;
 
         void Start ()
     {
@@ -70,6 +72,8 @@ namespace UnityStandardAssets._2D
         private void Die(){
                 renderer.flipY = true;
                 rb2D.constraints = RigidbodyConstraints2D.None;
+                playerBrain = FindObjectOfType<UnityStandardAssets._2D.PlatformerCharacter2D>();
+                playerBrain.IncreaseScore(scoreValue);
         }
     }
 }
