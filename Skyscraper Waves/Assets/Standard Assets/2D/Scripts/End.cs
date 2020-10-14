@@ -13,6 +13,6 @@ public class End : MonoBehaviour
 
     void TheEnd(){
         Debug.Log("Done");
-        SceneManager.LoadScene (sceneName:"StartMenu");
+        SceneManager.LoadScene (sceneName:"LevelComplete");
         }
 }
