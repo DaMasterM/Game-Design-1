@@ -23,7 +23,12 @@ public class Crate : MonoBehaviour
         {
             if (colliders[i].gameObject.tag == "Water")
             {
-                rb2d.AddForce(new Vector2(0, 3f * rb2d.mass), ForceMode2D.Force);
+                float x = transform.position.x;
+                float z = transform.position.z;
+                rb2d.AddForce(new Vector2(0, 3.5f * rb2d.mass), ForceMode2D.Force);
+                Vector3 targetPos = new Vector3(x, colliders[i].transform.position.y + 35f, z);
+                Vector3 currentVelocity = rb2d.velocity;
+                transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, 1f, Mathf.Infinity, Time.deltaTime);
             }
         }
     }
