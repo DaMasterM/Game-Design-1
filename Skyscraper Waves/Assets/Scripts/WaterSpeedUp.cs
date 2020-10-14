@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
-    //[RequireComponent(typeof(RisingWater1))]
+    [RequireComponent(typeof(Water))]
     [RequireComponent(typeof(Shark))]
     public class WaterSpeedUp : MonoBehaviour
     {
-        //public GameObject water; //The water that speeds up or slows down
+        public Water water; //The water that speeds up or slows down
         public Shark shark; //The shark prefab that may need to rise faster or slower
         public float newSpeed;   //The new speed the water rises at
 
@@ -28,7 +28,7 @@ namespace UnityStandardAssets._2D
         {
             if (other.gameObject.tag == "Player")
             {
-                //water.velY = newSpeed;
+                water.velY = newSpeed;
                 shark.velY = newSpeed;
             }
         }

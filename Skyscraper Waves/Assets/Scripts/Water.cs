@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Water : MonoBehaviour
+namespace UnityStandardAssets._2D
 {
-    public Rigidbody2D rb2D;
-    public float velY = 1.5f;
-    private Vector2 velocity;
-
-    void Start()
+    public class Water : MonoBehaviour
     {
-        velocity = new Vector2(0.0f, velY);
-    }
+        public Rigidbody2D rb2D;
+        public float velY = 1.5f;
+        private Vector2 velocity;
 
-    void FixedUpdate()
-    {
-        rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
-        if (rb2D.position.y >= 400.0)
-        {
-            velocity = new Vector2(0.0f, -velY);
-        }
-        if (rb2D.position.y <= -2.0)
+        void Start()
         {
             velocity = new Vector2(0.0f, velY);
+        }
+
+        void FixedUpdate()
+        {
+            rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
+            if (rb2D.position.y >= 400.0)
+            {
+                velocity = new Vector2(0.0f, -velY);
+            }
+            if (rb2D.position.y <= -2.0)
+            {
+                velocity = new Vector2(0.0f, velY);
+            }
         }
     }
 }
