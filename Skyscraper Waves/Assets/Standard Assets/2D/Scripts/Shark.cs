@@ -48,7 +48,7 @@ namespace UnityStandardAssets._2D
             transform.Translate (Vector2.up * velY * Time.deltaTime);
             if(interval == 0){
                 if(rnd.Next(1,5000)==1){
-                    startjump = transform.position.y;
+                    startjump = transform.position.y + (velY * 1.670083f);
                     Jump();}
             }
             else
@@ -56,7 +56,8 @@ namespace UnityStandardAssets._2D
 
             if(transform.position.y < startjump && interval < 4700)
                 rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-                //transform.position.y = startjump;
+            
+                
 
 
             
