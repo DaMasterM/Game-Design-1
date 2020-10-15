@@ -76,7 +76,6 @@ namespace UnityStandardAssets._2D
                 if (Player2 != null)
                 {
                     //If the GameObject's tag matches the one you suggest, deal damage
-                    renderer.flipY = true;
                     Player2.LoseHealth(damage);
                 }
             //}
