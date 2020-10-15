@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 #pragma warning disable 649
 namespace UnityStandardAssets._2D
@@ -48,6 +49,16 @@ namespace UnityStandardAssets._2D
         private int coins = 0;
         private bool hasSpecialCollectable = false;
 
+        //sound effects
+        public AudioSource jumpingsound;
+        public AudioSource grabbingsound;
+        
+        void start ()
+        {
+            jumpingsound = gameObject.AddComponent<AudioSource>();
+            grabbingsound = gameObject.AddComponent<AudioSource>();
+        }
+
         private void Awake()
         {
             // Setting up references.
@@ -62,6 +73,8 @@ namespace UnityStandardAssets._2D
             health = m_MaxHealth;
 
             crates = GameObject.FindGameObjectsWithTag("Crate");
+
+
         }
 
 
@@ -153,6 +166,7 @@ namespace UnityStandardAssets._2D
                 // If the player should jump...
                 if (m_Grounded && jump && m_Anim.GetBool("Ground"))
                 {
+                    jumpingsound.Play();
                     // Add a vertical force to the player.
                     m_Grounded = false;
                     m_Anim.SetBool("Ground", false);
@@ -242,7 +256,8 @@ namespace UnityStandardAssets._2D
         //Pick up a collectable
         public void Collect(object collectable)
         {
-            //Make a distinction between a coin and a special collectable
+        grabbingsound.Play();    
+        //Make a distinction between a coin and a special collectable
             //For a special collectable, indicate it is collected and increase score.
             /* if(collectable.getType = ...) {...;} */
 
@@ -255,6 +270,7 @@ namespace UnityStandardAssets._2D
         {
             if (other.gameObject.CompareTag("Coin"))
             {
+                grabbingsound.Play();
                 Destroy (other.gameObject);
             }
 
