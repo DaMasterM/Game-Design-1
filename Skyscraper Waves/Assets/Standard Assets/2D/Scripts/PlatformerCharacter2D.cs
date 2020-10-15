@@ -46,6 +46,7 @@ namespace UnityStandardAssets._2D
 
         //collectables
         private int coins = 0;
+        private bool hasSpecialCollectable = false;
 
         private void Awake()
         {
@@ -207,6 +208,11 @@ namespace UnityStandardAssets._2D
             score += addedScore;
         }
 
+        public float GetScore()
+        {
+            return score;
+        }
+
         //Reset gravity
         public void resetGravity()
         {
@@ -302,6 +308,18 @@ namespace UnityStandardAssets._2D
         public void IncreaseCoins(int value)
         {
             coins += value;
+            IncreaseScore(value * 10);
+        }
+
+        public void SpecialCollectable(int value)
+        {
+            hasSpecialCollectable = true;
+            IncreaseScore(value);
+        }
+
+        public bool GetSpecialCollectable()
+        {
+            return hasSpecialCollectable;
         }
     }
 }
