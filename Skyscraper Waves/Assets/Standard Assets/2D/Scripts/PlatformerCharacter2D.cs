@@ -52,11 +52,13 @@ namespace UnityStandardAssets._2D
         //sound effects
         public AudioSource jumpingsound;
         public AudioSource grabbingsound;
+        public AudioSource collectingsound;
         
         void start ()
         {
             jumpingsound = gameObject.AddComponent<AudioSource>();
             grabbingsound = gameObject.AddComponent<AudioSource>();
+            collectingsound = gameObject.AddComponent<AudioSource>();
         }
 
         private void Awake()
@@ -329,12 +331,14 @@ namespace UnityStandardAssets._2D
 
         public void SpecialCollectable(int value)
         {
-            hasSpecialCollectable = true;
+        // deze werkt niet: grabbingsound.Play();    
+        hasSpecialCollectable = true;
             IncreaseScore(value);
         }
 
         public bool GetSpecialCollectable()
         {
+        // deze werkt ook niet, als je hem hier plaatst hoor je het oppakken van de munten niet meer: grabbingsound.Play();     
             return hasSpecialCollectable;
         }
     }
