@@ -14,10 +14,13 @@ namespace UnityStandardAssets._2D
         public SpriteRenderer renderer;
         float start;
         float startjump;
+        private float starttime;
+        private float completetime;
         public float velY = 0.2f;
+        private int i = 0;
         public System.Random rnd = new System.Random();
 
-        private int interval;
+        public int interval;
         private Rigidbody2D rb2D;
         public float thrust = 300.0f;
         
@@ -48,14 +51,21 @@ namespace UnityStandardAssets._2D
             transform.Translate (Vector2.up * velY * Time.deltaTime);
             if(interval == 0){
                 if(rnd.Next(1,5000)==1){
-                    startjump = transform.position.y + (velY * 1.670083f);
+                    if(i==0)
+                        startjump = transform.position.y + (velY * 1.25f);
+                    else
+                        startjump = transform.position.y + (velY * completetime);
+                    starttime = Time.time;
                     Jump();}
             }
             else
                 interval -= 1;
 
-            if(transform.position.y < startjump && interval < 4700)
+            if(transform.position.y < startjump && interval < 4750){
+                completetime = Time.time - starttime;
                 rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+            }
+                
             
                 
 
@@ -83,6 +93,7 @@ namespace UnityStandardAssets._2D
         }
 
         private void Jump(){
+            i = 1;
             interval = 5000;
             rb2D.constraints = RigidbodyConstraints2D.None;
             rb2D.AddForce(new Vector2(0f, thrust));
