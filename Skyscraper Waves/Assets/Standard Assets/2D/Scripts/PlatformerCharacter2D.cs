@@ -257,8 +257,7 @@ namespace UnityStandardAssets._2D
 
         //Pick up a collectable
         public void Collect(object collectable)
-        {
-        grabbingsound.Play();    
+        {  
         //Make a distinction between a coin and a special collectable
             //For a special collectable, indicate it is collected and increase score.
             /* if(collectable.getType = ...) {...;} */
@@ -271,6 +270,12 @@ namespace UnityStandardAssets._2D
         private void OnTriggerEnter2D (Collider2D other)
         {
             if (other.gameObject.CompareTag("Coin"))
+            {
+                collectingsound.Play();
+                Destroy (other.gameObject);
+            }
+
+             if (other.gameObject.CompareTag("PowerUp"))
             {
                 grabbingsound.Play();
                 Destroy (other.gameObject);
@@ -331,15 +336,15 @@ namespace UnityStandardAssets._2D
 
         public void SpecialCollectable(int value)
         {
-        // deze werkt niet: grabbingsound.Play();    
-        hasSpecialCollectable = true;
+           hasSpecialCollectable = true;
             IncreaseScore(value);
         }
 
         public bool GetSpecialCollectable()
         {
-        // deze werkt ook niet, als je hem hier plaatst hoor je het oppakken van de munten niet meer: grabbingsound.Play();     
             return hasSpecialCollectable;
         }
+
+      
     }
 }

@@ -1162,6 +1162,10 @@ PrefabInstance:
       propertyPath: jumpingsound
       value: 
       objectReference: {fileID: 2034315838}
+    - target: {fileID: 11400002, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
+      propertyPath: collectingsound
+      value: 
+      objectReference: {fileID: 1148874145}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a2357765801c34292d6718d8b4d770, type: 3}
 --- !u!1001 &490605638
@@ -7265,6 +7269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUpPencil
       objectReference: {fileID: 0}
+    - target: {fileID: 1140240475533252320, guid: b36ea4c2b3682e240a78a10a3d374a3f,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerUp
+      objectReference: {fileID: 0}
     - target: {fileID: 1140240475533252324, guid: b36ea4c2b3682e240a78a10a3d374a3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7422,6 +7431,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUpJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 2316382816692833366, guid: 4492bf1014fa0e845a7579cc4d95bc46,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerUp
       objectReference: {fileID: 0}
     - target: {fileID: 2316382816692833385, guid: 4492bf1014fa0e845a7579cc4d95bc46,
         type: 3}
@@ -7657,6 +7671,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerUpStrenght
       objectReference: {fileID: 0}
+    - target: {fileID: 3570267362682592445, guid: 7c47464aa72ebcf46a90da9b1dff64fd,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerUp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c47464aa72ebcf46a90da9b1dff64fd, type: 3}
 --- !u!1001 &5049135900600133906
@@ -7804,6 +7823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PowerUpSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 7631588705954463967, guid: 0d9c602316b885d4cba9a53b18f120d4,
+        type: 3}
+      propertyPath: m_TagString
+      value: PowerUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d9c602316b885d4cba9a53b18f120d4, type: 3}
