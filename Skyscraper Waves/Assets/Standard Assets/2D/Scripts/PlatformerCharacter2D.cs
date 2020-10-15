@@ -53,12 +53,14 @@ namespace UnityStandardAssets._2D
         public AudioSource jumpingsound;
         public AudioSource grabbingsound;
         public AudioSource collectingsound;
+        public AudioSource runningsound;
         
         void start ()
         {
             jumpingsound = gameObject.AddComponent<AudioSource>();
             grabbingsound = gameObject.AddComponent<AudioSource>();
             collectingsound = gameObject.AddComponent<AudioSource>();
+            runningsound = gameObject.AddComponent<AudioSource>();
         }
 
         private void Awake()
@@ -90,7 +92,8 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
-                    m_Grounded = true;
+                //runningsound.Play();    
+                m_Grounded = true;
             }
             m_Anim.SetBool("Ground", m_Grounded);
 
@@ -101,9 +104,11 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, float climb, bool crouch, bool jump)
         {
+            //runningsound.Play();
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
             {
+                //runningsound.Play();
                 // If the character has a ceiling preventing them from standing up, keep them crouching
                 if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
                 {
@@ -143,6 +148,7 @@ namespace UnityStandardAssets._2D
                 //only control the player if grounded or airControl is turned on
                 if (m_Grounded || m_AirControl)
                 {
+                    //runningsound.Play();
                     // Reduce the speed if crouching by the crouchSpeed multiplier
                     move = (crouch ? move * m_CrouchSpeed : move);
 
@@ -150,6 +156,7 @@ namespace UnityStandardAssets._2D
                     m_Anim.SetFloat("Speed", Mathf.Abs(move));
 
                     // Move the character
+                    //runningsound.Play();
                     m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, m_Rigidbody2D.velocity.y);
 
                     // If the input is moving the player right and the player is facing left...
@@ -176,7 +183,7 @@ namespace UnityStandardAssets._2D
                 }
             }
         }
-
+        
 
         private void Flip()
         {
