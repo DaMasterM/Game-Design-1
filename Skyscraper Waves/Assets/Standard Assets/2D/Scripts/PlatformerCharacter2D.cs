@@ -35,6 +35,7 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private bool isMoving = false;      // Whether the player is moving sideways
 
         //shooting  variables
         public int ammo = 0; //amount of ammo currently available
@@ -81,6 +82,11 @@ namespace UnityStandardAssets._2D
 
         }
 
+        private void Update()
+        {
+            //While moving on the ground play the running sound
+            if (!((isMoving && m_Grounded) || isClimbing)) {runningsound.Play();}
+        }
 
         private void FixedUpdate()
         {
@@ -92,7 +98,6 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
-                //runningsound.Play();    
                 m_Grounded = true;
             }
             m_Anim.SetBool("Ground", m_Grounded);
@@ -104,11 +109,13 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, float climb, bool crouch, bool jump)
         {
-            //runningsound.Play();
+            isMoving = false;
+            if (move != 0) { isMoving = true; }
+
+
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
             {
-                //runningsound.Play();
                 // If the character has a ceiling preventing them from standing up, keep them crouching
                 if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
                 {
@@ -148,7 +155,6 @@ namespace UnityStandardAssets._2D
                 //only control the player if grounded or airControl is turned on
                 if (m_Grounded || m_AirControl)
                 {
-                    //runningsound.Play();
                     // Reduce the speed if crouching by the crouchSpeed multiplier
                     move = (crouch ? move * m_CrouchSpeed : move);
 
@@ -156,7 +162,6 @@ namespace UnityStandardAssets._2D
                     m_Anim.SetFloat("Speed", Mathf.Abs(move));
 
                     // Move the character
-                    //runningsound.Play();
                     m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, m_Rigidbody2D.velocity.y);
 
                     // If the input is moving the player right and the player is facing left...
