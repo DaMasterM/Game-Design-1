@@ -55,6 +55,9 @@ namespace UnityStandardAssets._2D
         public AudioSource grabbingsound;
         public AudioSource collectingsound;
         public AudioSource runningsound;
+
+        //animation clip times
+        private float deathAnimTime;
         
         void start ()
         {
@@ -78,6 +81,8 @@ namespace UnityStandardAssets._2D
             health = m_MaxHealth;
 
             crates = GameObject.FindGameObjectsWithTag("Crate");
+
+            UpdateAnimClipTimes();
 
 
         }
@@ -253,6 +258,15 @@ namespace UnityStandardAssets._2D
         public void Die()
         {
             alive = false;
+            m_Anim.Play("Die");
+            Move(0,0,false,false);
+            this.GetComponent<Platformer2DUserControl>().enabled = false;
+            Invoke("StopGameTime", deathAnimTime);
+        }
+
+        private void StopGameTime()
+        {
+            Time.timeScale = 0;
         }
 
         //Lose health with some amount and perhaps die because of it
@@ -296,7 +310,7 @@ namespace UnityStandardAssets._2D
             // destroy player when he touches the Water
             if (other.gameObject.CompareTag("Water"))
             {
-                Destroy(this.gameObject);
+                Die();
             }
        
         }
@@ -357,6 +371,19 @@ namespace UnityStandardAssets._2D
             return hasSpecialCollectable;
         }
 
-      
+        public void UpdateAnimClipTimes()
+        {
+            AnimationClip[] clips = m_Anim.runtimeAnimatorController.animationClips;
+            foreach(AnimationClip clip in clips)
+            {
+                switch(clip.name)
+                {
+                    case "RobotBoyDie":
+                        deathAnimTime = clip.length;
+                        break;
+                }
+            }
+        }
+
     }
 }
