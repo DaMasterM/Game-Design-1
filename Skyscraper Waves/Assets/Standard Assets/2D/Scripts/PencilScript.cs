@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PencilScript : MonoBehaviour
 {
-    public float speed = 3f;
+    public float speed = 9f;
     public SpriteRenderer renderer;
 
     public void StartShoot(bool dirRight)

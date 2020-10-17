@@ -214,8 +214,11 @@ namespace UnityStandardAssets._2D
 
             foreach (GameObject crate in crates)
             {
-                if (revert) { crate.GetComponent<Rigidbody2D>().mass /= 2; }
-                else { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                if (crate != null)
+                {
+                    if (revert) { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                    else { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                }
             }
         }
 
@@ -230,8 +233,11 @@ namespace UnityStandardAssets._2D
         public void SetStrength(Boolean revert)
         {
             foreach (GameObject crate in crates){
-                if (revert) { crate.GetComponent<Rigidbody2D>().mass *= 2; }
-                else { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                if (crate != null)
+                {
+                    if (revert) { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                    else { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                }
             }
         }
 
@@ -279,17 +285,6 @@ namespace UnityStandardAssets._2D
         public float HealthLeft()
         {
             return health;
-        }
-
-        //Pick up a collectable
-        public void Collect(object collectable)
-        {  
-        //Make a distinction between a coin and a special collectable
-            //For a special collectable, indicate it is collected and increase score.
-            /* if(collectable.getType = ...) {...;} */
-
-            //Increase the player's score
-            //IncreaseScore(collectable.value);
         }
         
         // destroy coins when collected
