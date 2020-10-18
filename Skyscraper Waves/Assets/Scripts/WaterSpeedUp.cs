@@ -28,10 +28,10 @@ namespace UnityStandardAssets._2D
         {
             if (other.gameObject.tag == "Player")
             {
-                if (water != null)
-                {
+                //if (water != null)
+                //{
                     water.velY = newSpeed;
-                }
+                //}
 
                 if (shark != null)
                 {

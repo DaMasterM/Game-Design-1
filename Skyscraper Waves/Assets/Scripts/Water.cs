@@ -17,11 +17,11 @@ namespace UnityStandardAssets._2D
         void FixedUpdate()
         {
             rb2D.MovePosition(rb2D.position + velocity * Time.fixedDeltaTime);
-            if (rb2D.position.y >= 400.0)
+            if (rb2D.position.y >= 1600f)
             {
                 velocity = new Vector2(0.0f, -velY);
             }
-            if (rb2D.position.y <= -2.0)
+            if (rb2D.position.y <= 400.0f)
             {
                 velocity = new Vector2(0.0f, velY);
             }

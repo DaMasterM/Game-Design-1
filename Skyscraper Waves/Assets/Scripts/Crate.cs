@@ -9,6 +9,7 @@ public class Crate : MonoBehaviour
     private Transform waterCheck;   //Start position for checking collision with water
     private Rigidbody2D rb2d;
     public bool isFloating = false;
+    public bool breakable = true; //Whether this crate can be broken
     
     void Awake()
     {
@@ -38,7 +39,7 @@ public class Crate : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Pencil")
+        if (other.gameObject.tag == "Pencil" && breakable)
         {
             Break();
         }

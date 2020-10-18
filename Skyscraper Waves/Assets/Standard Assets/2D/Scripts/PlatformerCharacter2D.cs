@@ -36,6 +36,7 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
         private bool isMoving = false;      // Whether the player is moving sideways
+        private PhysicsMaterial2D material; 
 
         //shooting  variables
         public int ammo = 0; //amount of ammo currently available
@@ -79,6 +80,7 @@ namespace UnityStandardAssets._2D
             currentSpeed = m_MaxSpeed;
             currentJumpForce = m_JumpForce;
             health = m_MaxHealth;
+            material = m_Rigidbody2D.sharedMaterial;
 
             crates = GameObject.FindGameObjectsWithTag("Crate");
 
@@ -139,7 +141,7 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetFloat("Speed", Mathf.Abs(climb));
 
                 // Move the character up
-                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
+                m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, climb * currentSpeed);
             }
 
             // If climbing, do not move horizontally but vertically. This cannot be done while crouching
@@ -149,7 +151,7 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetFloat("Speed", Mathf.Abs(climb));
 
                 // Move the character
-                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
+                m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, climb * currentSpeed);
 
             }
             else
@@ -379,6 +381,6 @@ namespace UnityStandardAssets._2D
                 }
             }
         }
-
+        
     }
 }
