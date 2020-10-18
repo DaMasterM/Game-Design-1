@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 6906806310049872818}
   - component: {fileID: 4606337731122604417}
   - component: {fileID: 7398632775207874329}
+  - component: {fileID: 5212038811783882772}
+  - component: {fileID: 2680459774986014796}
+  - component: {fileID: 6770324362172594240}
+  - component: {fileID: 5748630858389701962}
   m_Layer: 0
   m_Name: WaterSpeedTrigger
   m_TagString: Untagged
@@ -71,6 +75,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   water: {fileID: 0}
-  crate: {fileID: 0}
+  shark: {fileID: 0}
+  newSpeed: 0
+--- !u!114 &5212038811783882772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611575982401352677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c4448002a2a5b48808b39802570fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb2D: {fileID: 0}
+  velY: 1.5
+--- !u!114 &2680459774986014796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611575982401352677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08f91df3bd212f429df17f53ce2f364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxSpeed: 10
+  m_JumpForce: 50
+  m_MaxHealth: 100
+  m_CrouchSpeed: 0.36
+  m_AirControl: 0
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  health: 0
+  score: 0
+  canClimb: 0
+  isClimbing: 0
+  ammo: 0
+  pencil: {fileID: 0}
+  pencilSpawnPos: {fileID: 0}
+  pencilSpeed: 3
+  shootDelay: 0.5
+  jumpingsound: {fileID: 0}
+  grabbingsound: {fileID: 0}
+  collectingsound: {fileID: 0}
+  runningsound: {fileID: 0}
+--- !u!114 &6770324362172594240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611575982401352677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d03d12b64105d47867c08a1ebe9eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dirRight: 1
+  speed: 2
+  distance: 2
+  damage: 5
+  renderer: {fileID: 0}
+  velY: 0.2
+  interval: 0
+  thrust: 300
+--- !u!114 &5748630858389701962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611575982401352677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e1076a4357f84ba5b1730d86f5f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  water: {fileID: 0}
   shark: {fileID: 0}
   newSpeed: 0
