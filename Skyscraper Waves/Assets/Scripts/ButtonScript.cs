@@ -14,6 +14,6 @@ public class ButtonScript : MonoBehaviour {
 
 	void TaskOnClick(){
         Debug.Log("Clicked");
-		SceneManager.LoadScene (sceneName:"StartMenu");
+		//SceneManager.LoadScene (sceneName:"StartMenu");
 	}
 }

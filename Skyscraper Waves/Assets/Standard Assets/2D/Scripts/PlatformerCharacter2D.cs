@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 #pragma warning disable 649
 namespace UnityStandardAssets._2D
@@ -59,6 +60,9 @@ namespace UnityStandardAssets._2D
 
         //animation clip times
         private float deathAnimTime;
+        Transform playerTrans;
+        bool levelComplete = false;
+        Vector3 scaleDown = new Vector3(-0.005f,-0.005f,0f);
         
         void start ()
         {
@@ -86,13 +90,16 @@ namespace UnityStandardAssets._2D
 
             UpdateAnimClipTimes();
 
-
+            playerTrans = this.GetComponent<Transform>();
         }
 
         private void Update()
         {
             //While moving on the ground play the running sound
             if (!((isMoving && m_Grounded) || isClimbing)) {runningsound.Play();}
+            if (levelComplete) {            
+                playerTrans.localScale += scaleDown;
+            }
         }
 
         private void FixedUpdate()
@@ -269,12 +276,15 @@ namespace UnityStandardAssets._2D
             m_Anim.Play("Die");
             Move(0,0,false,false);
             this.GetComponent<Platformer2DUserControl>().enabled = false;
-            Invoke("StopGameTime", deathAnimTime);
+            Invoke("LoadPostLevel", deathAnimTime);
         }
 
-        private void StopGameTime()
+        private void LoadPostLevel()
         {
-            Time.timeScale = 0;
+            PlayerPrefs.SetString("levelState", "Game Over");
+            PlayerPrefs.SetFloat("score", score);
+            PlayerPrefs.SetString("currentLevel", SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene (sceneName:"LevelComplete");
         }
 
         //Lose health with some amount and perhaps die because of it
@@ -298,10 +308,18 @@ namespace UnityStandardAssets._2D
                 Destroy (other.gameObject);
             }
 
-             if (other.gameObject.CompareTag("PowerUp"))
+            if (other.gameObject.CompareTag("PowerUp"))
             {
                 grabbingsound.Play();
                 Destroy (other.gameObject);
+            }
+
+            if (other.gameObject.CompareTag("Finish"))
+            {
+                this.GetComponent<Platformer2DUserControl>().enabled = false;
+                //this.GetComponent<SpriteRenderer>().enabled = false;
+                m_Rigidbody2D.velocity = new Vector2(0,0);
+                levelComplete = true;
             }
 
             // destroy player when he touches the Water
