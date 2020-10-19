@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 289752336}
   - component: {fileID: 289752335}
   - component: {fileID: 289752334}
+  - component: {fileID: 289752339}
   - component: {fileID: 289752338}
   m_Layer: 5
   m_Name: Canvas
@@ -500,6 +501,18 @@ MonoBehaviour:
   levelStateText: {fileID: 1733823629}
   restartButton: {fileID: 271930668}
   mainMenuButton: {fileID: 474069220}
+--- !u!114 &289752339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289752333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd4bed81b965a34cac654e8ddc6c776, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &432341433
 GameObject:
   m_ObjectHideFlags: 0

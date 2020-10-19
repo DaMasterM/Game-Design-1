@@ -10,13 +10,11 @@ public class HighScoreView : MonoBehaviour
     public Text score3;
     public Text score4;
     public Text score5;
-
+    private ScoreManager sm;
+    
     private void OnEnable()
     {
-        GameObject go = GameObject.Find("System");
-        if (go != null)
-        {
-            ScoreManager sm = go.GetComponent<ScoreManager>();
+        sm = FindObjectOfType<ScoreManager>();
             if (sm != null && sm.Scores != null && sm.Scores.Count == 5)
             {
                 score1.text = sm.Scores[0].ToString();
@@ -25,6 +23,5 @@ public class HighScoreView : MonoBehaviour
                 score4.text = sm.Scores[3].ToString();
                 score5.text = sm.Scores[4].ToString();
             }
-        }
     }
 }

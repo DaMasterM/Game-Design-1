@@ -16,8 +16,9 @@ public class ScoreManager : MonoBehaviour
     {
         this.filePath = Path.Combine(Application.persistentDataPath, "scores.txt");
         if (File.Exists(filePath))
+        {
             this.LoadScores();
-
+        }
         if (this.Scores == null)
         {
             this.Scores = new List<int>();
@@ -37,7 +38,7 @@ public class ScoreManager : MonoBehaviour
 
      public void UpdateScores(int score)
      {
-          if (score>this.Scores.Min())
+          if (score > this.Scores.Min())
           {
                 this.Scores.Add(score);
                 this.Scores = this.Scores.OrderByDescending (x => x).Take(5).ToList();
