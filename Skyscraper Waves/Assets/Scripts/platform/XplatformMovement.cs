@@ -19,7 +19,7 @@ public class XplatformMovement : MonoBehaviour
         {
             velocity = new Vector2(-velX, 0.0f);
         }
-        if (rb2D.position.x <= -10.0)
+        if (rb2D.position.x <= -8.0)
         {
             velocity = new Vector2(velX, 0.0f);
         }
