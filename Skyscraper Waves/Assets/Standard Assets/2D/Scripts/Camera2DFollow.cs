@@ -16,6 +16,12 @@ namespace UnityStandardAssets._2D
         private Vector3 m_CurrentVelocity;
         private Vector3 m_LookAheadPos;
 
+        //Bounds for the camera
+        public float leftBound = 1f;
+        public float rightBound = 2f;
+        public float lowerBound = 1f;
+        public float upperBound = 2f;
+
         // Use this for initialization
         private void Start()
         {
@@ -43,6 +49,12 @@ namespace UnityStandardAssets._2D
             }
 
             Vector3 aheadTargetPos = target.position + m_LookAheadPos + Vector3.forward*m_OffsetZ;
+            // Make sure the camera remains in the bounds of the level
+            aheadTargetPos.x = Mathf.Max(aheadTargetPos.x, leftBound);
+            aheadTargetPos.x = Mathf.Min(aheadTargetPos.x, rightBound);
+            aheadTargetPos.y = Mathf.Max(aheadTargetPos.y, lowerBound);
+            aheadTargetPos.y = Mathf.Min(aheadTargetPos.y, upperBound);
+            
             Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref m_CurrentVelocity, damping);
 
             transform.position = newPos;

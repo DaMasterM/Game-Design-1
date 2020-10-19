@@ -14,6 +14,8 @@ namespace UnityStandardAssets._2D
         public SpriteRenderer renderer;
         private Rigidbody2D rb2D;
         float start;
+        private UnityStandardAssets._2D.PlatformerCharacter2D playerBrain;
+        public float scoreValue = 100f;
         
         protected UnityStandardAssets._2D.PlatformerCharacter2D Player2;
         void Start ()
@@ -61,7 +63,7 @@ namespace UnityStandardAssets._2D
                 if (Player2 != null)
                 {
                     //If the GameObject's tag matches the one you suggest, deal damage
-                    renderer.flipY = true;
+                    //renderer.flipY = true;
                     Player2.LoseHealth(damage);
                 }
             //}
@@ -70,6 +72,8 @@ namespace UnityStandardAssets._2D
         private void Die(){
                 renderer.flipY = true;
                 rb2D.constraints = RigidbodyConstraints2D.None;
+                playerBrain = FindObjectOfType<UnityStandardAssets._2D.PlatformerCharacter2D>();
+                playerBrain.IncreaseScore(scoreValue);
         }
     }
 }

@@ -11,6 +11,8 @@ TagManager:
   - Pencil
   - Crate
   - Building
+  - PowerUp
+  - PlatformX
   layers:
   - Default
   - TransparentFX

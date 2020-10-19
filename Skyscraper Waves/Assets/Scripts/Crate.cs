@@ -8,6 +8,8 @@ public class Crate : MonoBehaviour
     public GameObject powerUp;      //Which powerup is found in the crate
     private Transform waterCheck;   //Start position for checking collision with water
     private Rigidbody2D rb2d;
+    public bool isFloating = false;
+    public bool breakable = true; //Whether this crate can be broken
     
     void Awake()
     {
@@ -18,20 +20,26 @@ public class Crate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isFloating = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(waterCheck.position, new Vector2(1.25f,1.25f), 0f);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject.tag == "Water")
             {
-                rb2d.AddForce(new Vector2(0, 3f * rb2d.mass), ForceMode2D.Force);
+                float x = transform.position.x;
+                float z = transform.position.z;
+                rb2d.AddForce(new Vector2(0, 6f * rb2d.mass), ForceMode2D.Force);
+                Vector3 targetPos = new Vector3(x, colliders[i].gameObject.transform.position.y + 36f, z);
+                Vector3 currentVelocity = rb2d.velocity;
+                transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, 1f, Mathf.Infinity, Time.deltaTime);
+                isFloating = true;
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered");
-        if (other.gameObject.tag == "Pencil")
+        if (other.gameObject.tag == "Pencil" && breakable)
         {
             Break();
         }

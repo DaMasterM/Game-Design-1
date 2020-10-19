@@ -526,13 +526,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1380763903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 017d42ce57f4068469d6843085dad3a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b413c05dd8db854eb2b76eb47767c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   button: {fileID: 552046887}
   on: 0
   rb2D: {fileID: 1380763906}
   VELOCITY: 1.5
+=======
+  rb2D: {fileID: 1380763906}
+  velX: 1.5
+  leftBound: -1
+  rightBound: 5
+>>>>>>> 869f85af5f449730edd7f7468005e685064a53d2
 --- !u!50 &1380763906 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4913020143739029477, guid: 443da759238ba7940929d3d6407e856a,
@@ -794,6 +801,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: platformY
       objectReference: {fileID: 0}
+    - target: {fileID: 2885081146963303018, guid: fb297b49e93d18244976dd7edd9eeb1d,
+        type: 3}
+      propertyPath: lowerBound
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885081146963303018, guid: fb297b49e93d18244976dd7edd9eeb1d,
+        type: 3}
+      propertyPath: upperBound
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb297b49e93d18244976dd7edd9eeb1d, type: 3}
 --- !u!1001 &4913020143235559172
@@ -873,8 +890,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: platformX
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4913020143739029478, guid: 443da759238ba7940929d3d6407e856a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 443da759238ba7940929d3d6407e856a, type: 3}
 --- !u!1001 &8230882611101828446
 PrefabInstance:

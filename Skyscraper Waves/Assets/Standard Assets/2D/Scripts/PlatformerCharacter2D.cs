@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 #pragma warning disable 649
 namespace UnityStandardAssets._2D
@@ -8,7 +10,7 @@ namespace UnityStandardAssets._2D
     {
         [SerializeField] public float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis
         [SerializeField] public float m_JumpForce = 50f;                  // Amount of force added when the player jumps
-        [SerializeField] public float m_MaxHealth = 100f;                  // The maximum health the player has
+        [SerializeField] public float m_MaxHealth = 50f;                  // The maximum health the player has
         [Range(0, 1)] [SerializeField] public float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
@@ -34,6 +36,8 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private bool isMoving = false;      // Whether the player is moving sideways
+        private PhysicsMaterial2D material; 
 
         //shooting  variables
         public int ammo = 0; //amount of ammo currently available
@@ -46,6 +50,27 @@ namespace UnityStandardAssets._2D
 
         //collectables
         private int coins = 0;
+        private bool hasSpecialCollectable = false;
+
+        //sound effects
+        public AudioSource jumpingsound;
+        public AudioSource grabbingsound;
+        public AudioSource collectingsound;
+        public AudioSource runningsound;
+
+        //animation clip times
+        private float deathAnimTime;
+        Transform playerTrans;
+        bool levelComplete = false;
+        Vector3 scaleDown = new Vector3(-0.005f,-0.005f,0f);
+        
+        void start ()
+        {
+            jumpingsound = gameObject.AddComponent<AudioSource>();
+            grabbingsound = gameObject.AddComponent<AudioSource>();
+            collectingsound = gameObject.AddComponent<AudioSource>();
+            runningsound = gameObject.AddComponent<AudioSource>();
+        }
 
         private void Awake()
         {
@@ -59,10 +84,23 @@ namespace UnityStandardAssets._2D
             currentSpeed = m_MaxSpeed;
             currentJumpForce = m_JumpForce;
             health = m_MaxHealth;
+            material = m_Rigidbody2D.sharedMaterial;
 
             crates = GameObject.FindGameObjectsWithTag("Crate");
+
+            UpdateAnimClipTimes();
+
+            playerTrans = this.GetComponent<Transform>();
         }
 
+        private void Update()
+        {
+            //While moving on the ground play the running sound
+            if (!((isMoving && m_Grounded) || isClimbing)) {runningsound.Play();}
+            if (levelComplete) {            
+                playerTrans.localScale += scaleDown;
+            }
+        }
 
         private void FixedUpdate()
         {
@@ -74,7 +112,7 @@ namespace UnityStandardAssets._2D
             for (int i = 0; i < colliders.Length; i++)
             {
                 if (colliders[i].gameObject != gameObject)
-                    m_Grounded = true;
+                m_Grounded = true;
             }
             m_Anim.SetBool("Ground", m_Grounded);
 
@@ -85,6 +123,10 @@ namespace UnityStandardAssets._2D
 
         public void Move(float move, float climb, bool crouch, bool jump)
         {
+            isMoving = false;
+            if (move != 0) { isMoving = true; }
+
+
             // If crouching, check to see if the character can stand up
             if (!crouch && m_Anim.GetBool("Crouch"))
             {
@@ -106,7 +148,7 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetFloat("Speed", Mathf.Abs(climb));
 
                 // Move the character up
-                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
+                m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, climb * currentSpeed);
             }
 
             // If climbing, do not move horizontally but vertically. This cannot be done while crouching
@@ -116,7 +158,7 @@ namespace UnityStandardAssets._2D
                 m_Anim.SetFloat("Speed", Mathf.Abs(climb));
 
                 // Move the character
-                m_Rigidbody2D.velocity = new Vector2(0, climb * currentSpeed);
+                m_Rigidbody2D.velocity = new Vector2(move * currentSpeed, climb * currentSpeed);
 
             }
             else
@@ -152,6 +194,7 @@ namespace UnityStandardAssets._2D
                 // If the player should jump...
                 if (m_Grounded && jump && m_Anim.GetBool("Ground"))
                 {
+                    jumpingsound.Play();
                     // Add a vertical force to the player.
                     m_Grounded = false;
                     m_Anim.SetBool("Ground", false);
@@ -159,7 +202,7 @@ namespace UnityStandardAssets._2D
                 }
             }
         }
-
+        
 
         private void Flip()
         {
@@ -180,8 +223,11 @@ namespace UnityStandardAssets._2D
 
             foreach (GameObject crate in crates)
             {
-                if (revert) { crate.GetComponent<Rigidbody2D>().mass /= 2; }
-                else { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                if (crate != null)
+                {
+                    if (revert) { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                    else { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                }
             }
         }
 
@@ -196,8 +242,11 @@ namespace UnityStandardAssets._2D
         public void SetStrength(Boolean revert)
         {
             foreach (GameObject crate in crates){
-                if (revert) { crate.GetComponent<Rigidbody2D>().mass *= 2; }
-                else { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                if (crate != null)
+                {
+                    if (revert) { crate.GetComponent<Rigidbody2D>().mass *= 2; }
+                    else { crate.GetComponent<Rigidbody2D>().mass /= 2; }
+                }
             }
         }
 
@@ -205,6 +254,11 @@ namespace UnityStandardAssets._2D
         public void IncreaseScore(float addedScore)
         {
             score += addedScore;
+        }
+
+        public float GetScore()
+        {
+            return score;
         }
 
         //Reset gravity
@@ -219,6 +273,18 @@ namespace UnityStandardAssets._2D
         public void Die()
         {
             alive = false;
+            m_Anim.Play("Die");
+            Move(0,0,false,false);
+            this.GetComponent<Platformer2DUserControl>().enabled = false;
+            Invoke("LoadPostLevel", deathAnimTime);
+        }
+
+        private void LoadPostLevel()
+        {
+            PlayerPrefs.SetString("levelState", "Game Over");
+            PlayerPrefs.SetFloat("score", score);
+            PlayerPrefs.SetString("currentLevel", SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene (sceneName:"LevelComplete");
         }
 
         //Lose health with some amount and perhaps die because of it
@@ -232,30 +298,34 @@ namespace UnityStandardAssets._2D
         {
             return health;
         }
-
-        //Pick up a collectable
-        public void Collect(object collectable)
-        {
-            //Make a distinction between a coin and a special collectable
-            //For a special collectable, indicate it is collected and increase score.
-            /* if(collectable.getType = ...) {...;} */
-
-            //Increase the player's score
-            //IncreaseScore(collectable.value);
-        }
         
         // destroy coins when collected
         private void OnTriggerEnter2D (Collider2D other)
         {
             if (other.gameObject.CompareTag("Coin"))
             {
+                collectingsound.Play();
                 Destroy (other.gameObject);
+            }
+
+            if (other.gameObject.CompareTag("PowerUp"))
+            {
+                grabbingsound.Play();
+                Destroy (other.gameObject);
+            }
+
+            if (other.gameObject.CompareTag("Finish"))
+            {
+                this.GetComponent<Platformer2DUserControl>().enabled = false;
+                //this.GetComponent<SpriteRenderer>().enabled = false;
+                m_Rigidbody2D.velocity = new Vector2(0,0);
+                levelComplete = true;
             }
 
             // destroy player when he touches the Water
             if (other.gameObject.CompareTag("Water"))
             {
-                Destroy(this.gameObject);
+                Die();
             }
        
         }
@@ -302,6 +372,33 @@ namespace UnityStandardAssets._2D
         public void IncreaseCoins(int value)
         {
             coins += value;
+            IncreaseScore(value * 10);
         }
+
+        public void SpecialCollectable(int value)
+        {
+           hasSpecialCollectable = true;
+            IncreaseScore(value);
+        }
+
+        public bool GetSpecialCollectable()
+        {
+            return hasSpecialCollectable;
+        }
+
+        public void UpdateAnimClipTimes()
+        {
+            AnimationClip[] clips = m_Anim.runtimeAnimatorController.animationClips;
+            foreach(AnimationClip clip in clips)
+            {
+                switch(clip.name)
+                {
+                    case "RobotBoyDie":
+                        deathAnimTime = clip.length;
+                        break;
+                }
+            }
+        }
+        
     }
 }
