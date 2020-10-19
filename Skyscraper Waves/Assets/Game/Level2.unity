@@ -40912,6 +40912,7 @@ Transform:
   - {fileID: 2094503145}
   - {fileID: 1642185250}
   - {fileID: 1755691431}
+  - {fileID: 2119809417}
   - {fileID: 1120691110}
   - {fileID: 754491899}
   - {fileID: 1804368516}
@@ -40919,12 +40920,11 @@ Transform:
   - {fileID: 1385768839}
   - {fileID: 1444640242}
   - {fileID: 188787069}
-  - {fileID: 69108836}
   - {fileID: 288090063}
-  - {fileID: 1378124470}
+  - {fileID: 69108836}
   - {fileID: 169336827}
-  - {fileID: 2119809417}
   - {fileID: 611025286}
+  - {fileID: 1378124470}
   - {fileID: 38121818}
   - {fileID: 1285485789}
   - {fileID: 261568044}
@@ -46778,7 +46778,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654238610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae3983824def844986427aa3a1c64a8, type: 3}
   m_Name: 
@@ -72807,7 +72807,7 @@ Transform:
   - {fileID: 845231201}
   - {fileID: 272187915}
   m_Father: {fileID: 291729461}
-  m_RootOrder: 301
+  m_RootOrder: 290
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2122462815
 PrefabInstance:
