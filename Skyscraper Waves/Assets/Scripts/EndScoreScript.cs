@@ -12,13 +12,21 @@ public class EndScoreScript : MonoBehaviour
     public Button restartButton;
     public Button mainMenuButton;
     private string currentLevel;
+    private int score;
+    private ScoreManager sm;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {       
         if (PlayerPrefs.HasKey("score"))
         {
+            score = (int) PlayerPrefs.GetFloat("score");
             scoreText.text = "Score = " + PlayerPrefs.GetFloat("score");
+            sm = this.GetComponent<ScoreManager>();
+            if (sm != null)
+                {
+                    Invoke("UpdateHighScores", 0.5f);
+                }
         }
         else
         {
@@ -33,7 +41,12 @@ public class EndScoreScript : MonoBehaviour
         if (PlayerPrefs.HasKey("currentLevel"))
         {
             currentLevel = PlayerPrefs.GetString("currentLevel");
-        }
+        }                
+    }
+    
+    private void UpdateHighScores()
+    {
+        sm.UpdateScores(score);
     }
 
     // Update is called once per frame
