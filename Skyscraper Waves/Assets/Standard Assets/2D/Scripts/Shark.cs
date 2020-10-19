@@ -12,7 +12,7 @@ namespace UnityStandardAssets._2D
         public float distance = 2.0f;
         public float damage = 5.0f;
         public SpriteRenderer renderer;
-        float start;
+        public float start;
         float startjump;
         private float starttime;
         private float completetime;

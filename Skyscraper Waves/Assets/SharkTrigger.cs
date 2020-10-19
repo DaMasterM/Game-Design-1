@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
-    public class WaterSpeedUp : MonoBehaviour
+    public class SharkTrigger : MonoBehaviour
     {
-        public Water water; //The water that speeds up or slows down
-        public Shark[] sharks; //The shark prefab that may need to rise faster or slower
-        public float newSpeed;   //The new speed the water rises at
+        public Shark[] sharks; //The shark prefab that may need to be adjusted
+        public float[] newStarts;   //The new start of the shark's path
+        public float[] newDistances; //The new distance of the shark's path
 
         // Start is called before the first frame update
         void Start()
@@ -26,13 +26,12 @@ namespace UnityStandardAssets._2D
         {
             if (other.gameObject.tag == "Player")
             {
-                water.velY = newSpeed;
-
-                foreach (Shark shark in sharks)
+                for (int i = 0; i < sharks.Length; i++)
                 {
-                    if (shark != null)
+                    if (sharks[i] != null)
                     {
-                        shark.velY = newSpeed;
+                        sharks[i].start = newStarts[i];
+                        sharks[i].distance = newDistances[i];
                     }
                 }
             }
