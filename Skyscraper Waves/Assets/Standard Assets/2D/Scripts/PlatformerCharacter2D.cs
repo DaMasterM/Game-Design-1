@@ -10,7 +10,7 @@ namespace UnityStandardAssets._2D
     {
         [SerializeField] public float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis
         [SerializeField] public float m_JumpForce = 50f;                  // Amount of force added when the player jumps
-        [SerializeField] public float m_MaxHealth = 100f;                  // The maximum health the player has
+        [SerializeField] public float m_MaxHealth = 50f;                  // The maximum health the player has
         [Range(0, 1)] [SerializeField] public float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character

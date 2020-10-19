@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
-    [RequireComponent(typeof(Water))]
-    [RequireComponent(typeof(Shark))]
     public class WaterSpeedUp : MonoBehaviour
     {
         public Water water; //The water that speeds up or slows down
