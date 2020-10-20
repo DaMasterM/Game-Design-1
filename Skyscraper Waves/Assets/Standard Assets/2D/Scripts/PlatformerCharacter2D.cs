@@ -62,7 +62,7 @@ namespace UnityStandardAssets._2D
         private float deathAnimTime;
         Transform playerTrans;
         bool levelComplete = false;
-        Vector3 scaleDown = new Vector3(-0.005f,-0.005f,0f);
+        Vector3 scaleDown;
         
         void start ()
         {
@@ -320,6 +320,11 @@ namespace UnityStandardAssets._2D
                 //this.GetComponent<SpriteRenderer>().enabled = false;
                 m_Rigidbody2D.velocity = new Vector2(0,0);
                 levelComplete = true;
+                if (m_FacingRight){
+                    scaleDown = new Vector3(-0.005f,-0.005f,0f);
+                } else {
+                    scaleDown = new Vector3(0.005f,-0.005f,0f);
+                }
             }
 
             // destroy player when he touches the Water
