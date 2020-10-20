@@ -7,7 +7,7 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Bat : MonoBehaviour
     {
-        public bool dirRight = true;
+        public bool dirRight = false;
         public float speed = 2.0f;
         public float distance = 2.0f;
         public float damage = 2.0f;
@@ -33,12 +33,12 @@ namespace UnityStandardAssets._2D
             
             if(transform.position.x >= start + distance) {
                 dirRight = false;
-                renderer.flipX = true;
+                renderer.flipX = false;
             }
             
             if(transform.position.x <= start - distance) {
                 dirRight = true;
-                renderer.flipX = false;
+                renderer.flipX = true;
             }
 
             

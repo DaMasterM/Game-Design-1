@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
+    //Refer to new y as water level, check water level >= y then speed up else normal speed
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Shark : MonoBehaviour
     {
@@ -16,6 +17,7 @@ namespace UnityStandardAssets._2D
         float startjump;
         private float starttime;
         private float completetime;
+        private float waterLevel;
         public float velY = 0.2f;
         private int i = 0;
         public System.Random rnd = new System.Random();
@@ -31,6 +33,7 @@ namespace UnityStandardAssets._2D
             start = transform.position.x;
             // get a reference to the SpriteRenderer component on this gameObject
             SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            waterLevel = transform.position.y;
     }
         private void Update () {
             if (dirRight)
@@ -65,9 +68,13 @@ namespace UnityStandardAssets._2D
                 completetime = Time.time - starttime;
                 rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
             }
-                
-            
-                
+
+            waterLevel += velY * Time.deltaTime;
+
+            if (transform.position.y < waterLevel)
+            {
+                transform.Translate(Vector2.up * 2 * velY * Time.deltaTime);
+            }            
 
 
             

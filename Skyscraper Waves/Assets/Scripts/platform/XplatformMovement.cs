@@ -21,11 +21,7 @@ public class XplatformMovement : MonoBehaviour
         {
             velocity = new Vector2(-velX, 0.0f);
         }
-<<<<<<< HEAD
-        if (rb2D.position.x <= -8.0)
-=======
         if (rb2D.position.x <= leftBound)
->>>>>>> 869f85af5f449730edd7f7468005e685064a53d2
         {
             velocity = new Vector2(velX, 0.0f);
         }
