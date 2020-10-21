@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1d51f1c6fc4ca754fa1b08c0e0db73ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0eb6bcd55e5830646a8df67fba2d0249, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,4 +117,4 @@ MonoBehaviour:
   expiresImmediately: 1
   specialEffect: {fileID: 0}
   soundEffect: {fileID: 0}
-  coinValue: 1000
+  scoreValue: 1000
