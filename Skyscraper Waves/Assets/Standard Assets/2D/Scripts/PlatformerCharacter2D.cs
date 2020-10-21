@@ -91,6 +91,14 @@ namespace UnityStandardAssets._2D
             UpdateAnimClipTimes();
 
             playerTrans = this.GetComponent<Transform>();
+
+            if (PlayerPrefs.HasKey("audio"))
+            {
+                jumpingsound.volume = PlayerPrefs.GetFloat("audio");
+                grabbingsound.volume = PlayerPrefs.GetFloat("audio");
+                collectingsound.volume = PlayerPrefs.GetFloat("audio");
+                runningsound.volume = PlayerPrefs.GetFloat("audio");
+            }
         }
 
         private void Update()
