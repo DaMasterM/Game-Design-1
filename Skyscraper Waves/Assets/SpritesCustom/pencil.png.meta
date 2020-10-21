@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: c8f1d25e39e93964a8ab71912fa2151e
+guid: 7c8277353721113459056ef10b2d8a9e
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -1146345621189607361
-    second: water spritesheet_0
-  - first:
-      213: 8876816670944229916
-    second: water spritesheet_1
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,12 +40,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 40
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,49 +97,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: water spritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1100
-        width: 1000
-        height: 900
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f304b2b2bbc5710f0800000000000000
-      internalID: -1146345621189607361
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water spritesheet_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 115
-        width: 1000
-        height: 900
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c1a75e71bb9c03b70800000000000000
-      internalID: 8876816670944229916
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
