@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
         coinText.text = "X" + player.CoinAmount();
         ammoText.text = "X" + player.AmmoAmount();
         healthText.text = player.HealthLeft().ToString();
-        scoreText.text = player.GetScore().ToString();
+        scoreText.text = "Score: " + player.GetScore().ToString();
         if (player.GetSpecialCollectable()) {
             noSpecialCollectable.SetActive(false);
             specialCollectable.SetActive(true);
