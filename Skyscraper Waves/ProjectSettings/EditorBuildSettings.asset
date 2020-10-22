@@ -30,6 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene.unity
     guid: 4a6be51af181a3947a10bfb7d15e868e
   - enabled: 1
-    path: Assets/Scenes/LevelComplete.unity
+    path: Assets/Game/LevelComplete.unity
     guid: d9a8cada5e0fd044b950b4035892cb07
   m_configObjects: {}
