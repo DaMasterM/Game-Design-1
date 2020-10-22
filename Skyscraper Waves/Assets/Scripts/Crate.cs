@@ -20,7 +20,6 @@ public class Crate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isFloating = false;
         Collider2D[] colliders = Physics2D.OverlapBoxAll(waterCheck.position, new Vector2(1.25f,1.25f), 0f);
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -28,7 +27,7 @@ public class Crate : MonoBehaviour
             {
                 float x = transform.position.x;
                 float z = transform.position.z;
-                rb2d.AddForce(new Vector2(0, 6f * rb2d.mass), ForceMode2D.Force);
+                rb2d.AddForce(new Vector2(0, 10f * rb2d.mass), ForceMode2D.Force);
                 Vector3 targetPos = new Vector3(x, colliders[i].gameObject.transform.position.y + 36f, z);
                 Vector3 currentVelocity = rb2d.velocity;
                 transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref currentVelocity, 1f, Mathf.Infinity, Time.deltaTime);

@@ -17,7 +17,7 @@ namespace UnityStandardAssets._2D
         float startjump;
         private float starttime;
         private float completetime;
-        private float waterLevel;
+        public float waterLevel;
         public float velY = 0.2f;
         private int i = 0;
         public System.Random rnd = new System.Random();
@@ -51,30 +51,37 @@ namespace UnityStandardAssets._2D
                 renderer.flipX = true;
             }
 
-            transform.Translate (Vector2.up * velY * Time.deltaTime);
-            if(interval == 0){
-                if(rnd.Next(1,5000)==1){
-                    if(i==0)
-                        startjump = transform.position.y + (velY * 1.25f);
-                    else
-                        startjump = transform.position.y + (velY * completetime);
-                    starttime = Time.time;
-                    Jump();}
-            }
-            else
-                interval -= 1;
-
-            if(transform.position.y < startjump && interval < 4750){
-                completetime = Time.time - starttime;
-                rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-            }
-
             waterLevel += velY * Time.deltaTime;
+
+            if (!(transform.position.y > waterLevel))
+            {
+                transform.Translate(Vector2.up * velY * Time.deltaTime);
+            }
 
             if (transform.position.y < waterLevel)
             {
                 transform.Translate(Vector2.up * 2 * velY * Time.deltaTime);
-            }            
+            }
+
+            if (interval == 0)
+            {
+                if (rnd.Next(1, 1000) == 1)
+                {
+                    if (i == 0)
+                        startjump = transform.position.y + (velY * 1.25f);
+                    else
+                        startjump = transform.position.y + (velY * completetime);
+                    starttime = Time.time;
+                    Jump();
+                }
+            }
+            else
+            { interval -= 1; }
+
+            if(transform.position.y < startjump && interval < 475){
+                completetime = Time.time - starttime;
+                rb2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+            }           
 
 
             
@@ -100,7 +107,7 @@ namespace UnityStandardAssets._2D
 
         private void Jump(){
             i = 1;
-            interval = 5000;
+            interval = 500;
             rb2D.constraints = RigidbodyConstraints2D.None;
             rb2D.AddForce(new Vector2(0f, thrust));
         }
